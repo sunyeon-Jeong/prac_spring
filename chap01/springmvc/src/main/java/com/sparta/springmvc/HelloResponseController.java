@@ -30,10 +30,11 @@ public class HelloResponseController {
                 "</html>";
     }
 
-    @GetMapping("/html/dynamic")
+    @GetMapping("/html/dynamic") // 타임리프방식
     public String helloHtmlFile(Model model) { // Model안에 우리가 원하는 값을 넣고, hello-visit.html을 반환
         visitCount++; // 방문자수 증가
-        model.addAttribute("visits", visitCount);
+        model.addAttribute("visits", visitCount); // hello-visit에 visits부분에 visitCount 삽입
+        // Controller는 Model을 이용해 데이터를 가져옴, View에 데이터를 넘김
         return "hello-visit"; // hello-visit.html에 방문자수 기록값
     }
 

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Arrays;
 import java.util.List;
 
-@RestController
+@RestController // Json형태의 데이터 반환
 @RequestMapping("/rest")
 public class HelloRestController {
 
