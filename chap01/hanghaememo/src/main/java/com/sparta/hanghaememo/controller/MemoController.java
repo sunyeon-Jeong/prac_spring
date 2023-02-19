@@ -16,20 +16,23 @@ import java.util.List;
 public class MemoController {
     private final MemoService memoService; // 서비스부분 불러옴
 
-    // 메모 생성하기
+    // 메인페이지
     @GetMapping("/")
     public ModelAndView home() {
         return new ModelAndView("index"); // 객체생성, index.html 반환해줌
     }
 
-    @PostMapping("/api/memos")
+    // 메모 생성하기
+    @PostMapping("/api/memos") // 생성 -> POST 형식
     public Memo creatMemo(@RequestBody MemoRequestDto requestDto) {
         // POST형식 -> Body가 존재, Body에 데이터 담아올것
+        // Entity Memo클래스의 메서드
+        // requestDto 데이터를(Json형태) 받아 -> @Service에 createMemo 메서드에 넣은 것 반환
         return memoService.createMemo(requestDto);
     }
 
     // 메모 조회하기
-    @GetMapping("/api/memos")
+    @GetMapping("/api/memos") // 조회 -> GET 방식
     public List<Memo> getMemos() {
         return memoService.getMemos();
     }
@@ -37,12 +40,14 @@ public class MemoController {
     // 메모 변경하기
     @PutMapping("/api/memos/{id}") // put 방식(변경)
     public Long updateMemo(@PathVariable Long id, @RequestBody MemoRequestDto requestDto) {
+        // @PathVariable : URL을 통해 전달된 값(id) -> 파라미터로 받아옴
         return memoService.update(id, requestDto);
+        // @Service에 updateMemo 전달 (URL로 받은 id, DTO에 있던 사용자 + 내용)
     }
 
     // 메모 삭제하기
     @DeleteMapping("/api/memos/{id}")
     public Long deleteMemo(@PathVariable Long id) {
-        return memoService.deleteMemo(id); // 데이터베이스와 연결
+        return memoService.deleteMemo(id); // 데이터베이스와 연결, 생성자로 id 값 가져감
     }
 }

@@ -16,8 +16,8 @@ import java.time.LocalDateTime;
 public class Timestamped { // Memo 클래스의 조상클래스
 
     @CreatedDate
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt; // 생성된시간
 
     @LastModifiedDate
-    private LocalDateTime modifiedAt;
+    private LocalDateTime modifiedAt; // 변경된시간
 }
