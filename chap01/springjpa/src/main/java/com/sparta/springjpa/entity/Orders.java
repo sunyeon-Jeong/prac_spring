@@ -5,12 +5,12 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Getter
+@Getter // 값을 가져올 때 사용
 @Entity
-@NoArgsConstructor
+@NoArgsConstructor // 기본생성자
 public class Orders {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id // PK 변수 선언
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // PK생성 DB에 위임
     private Long id;
 
     @ManyToOne
@@ -21,7 +21,7 @@ public class Orders {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    public Orders(Food food, Member member) {
+    public Orders(Food food, Member member) { // 생성자
         this.food = food;
         this.member = member;
     }
