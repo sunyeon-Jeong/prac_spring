@@ -1,4 +1,4 @@
 package com.sparta.hanghaeblog.dto;
 
-public class BoardResponseDto {
+public class BlogResponseDto {
 }
