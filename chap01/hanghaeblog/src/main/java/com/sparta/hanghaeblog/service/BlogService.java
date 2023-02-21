@@ -6,6 +6,7 @@ import com.sparta.hanghaeblog.entity.Blog;
 import com.sparta.hanghaeblog.repository.BlogRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service // 서비스단임을 알림
 @RequiredArgsConstructor // final, @Notnull -> 필드의 생성자 자동생성
@@ -13,6 +14,7 @@ public class BlogService {
     private final BlogRepository blogRepository; // DB 연결하는 레포지토리에 연결
 
     // 게시글작성
+    @Transactional
     public BlogResponseDto createBlog(BlogRequestDto requestDto) {
         // 반환 -> Entity Blog 클래스가 아닌, Dto 클래스
         /* Blog blog = new Blog(requestDto) -> 원래 Entity로 반환해야함*/

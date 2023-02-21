@@ -9,9 +9,9 @@ import java.time.LocalDateTime;
 @Getter
 public class BlogResponseDto {
     private String title; // 제목
-    private String user; // 사용자
+    private String username; // 사용자
     private String content; // 작성내용
-    private String password; // 비밀번호
+    private Long id; // 아이디
     private LocalDateTime createdAt; // 생성된 시간
     private LocalDateTime modifiedAt; // 변경된 시간
 
@@ -19,9 +19,9 @@ public class BlogResponseDto {
     @Builder
     public BlogResponseDto(Blog blog) {
         this.title = blog.getTitle();
-        this.user = blog.getUser();
+        this.username = blog.getUsername();
         this.content = blog.getContent();
-        this.password = blog.getPassword();
+        this.id = blog.getId();
         this.createdAt = blog.getCreatedAt();
         this.modifiedAt = blog.getModifiedAt();
     }

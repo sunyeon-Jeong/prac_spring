@@ -6,7 +6,7 @@ import lombok.Getter;
 @Getter
 public class BlogRequestDto {
     private String title; // 제목
-    private String user; // 사용자
+    private String username; // 사용자
     private String content; // 작성내용
     private String password; // 비밀번호
 }
