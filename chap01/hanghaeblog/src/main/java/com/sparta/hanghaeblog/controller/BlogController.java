@@ -6,10 +6,7 @@ import com.sparta.hanghaeblog.entity.Blog;
 import com.sparta.hanghaeblog.service.BlogService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,4 +30,14 @@ public class BlogController {
     public List<BlogResponseDto> getBlog() { // 반환타입은 ResponseDto(Service단에서 그렇게 지정함)
         return blogService.getBlog(); // Service단에서 getBlog메서드 리턴
     }
+
+    // 선택한게시글조회
+    @GetMapping("/api/post/{id}") // 조회 -> GET 형식
+    public BlogResponseDto getSelectedBlog(@PathVariable Long id) {
+        // 느슨한결합 -> Entity 바로 반환하지 않고, DTO에 담아서 반환
+        // @PathVariable : URL을 통해 전달된 값 -> 파라미터로 받아옴
+        return blogService.getSelectedBlog(id);
+        // Service단의 getSelectedBlog 메서드에 id값 넣어 return
+    }
+
 }

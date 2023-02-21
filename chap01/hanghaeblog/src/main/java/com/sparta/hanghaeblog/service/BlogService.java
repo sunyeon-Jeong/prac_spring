@@ -46,6 +46,19 @@ public class BlogService {
         }
         return responseBlogList; // Client단에 return
     }
+
+    // 선택한게시글조회
+    @Transactional(readOnly = true)
+    public BlogResponseDto getSelectedBlog(Long id) {
+        // Controller 단에서 Service 호출할때, 파라미터로 받은 id값으로 -> 해당 게시글 찾음
+        Blog selectedBlog = blogRepository.findById(id).orElseThrow(
+                // Entity Blog Class의 selectedBlog 객체 생성
+                // DB에서 findById(id)작업하고, id가 없으면 예외로 던짐
+                () -> new IllegalStateException("해당 게시글이 없습니다.")
+                // IllegalStateException : 적절하지 못한 인자를 메서드로 넘겨주었을 때의 예외
+        );
+        return new BlogResponseDto(selectedBlog);
+    }
 }
 
 /* 주요 Entity Class의 객체를 만들어
