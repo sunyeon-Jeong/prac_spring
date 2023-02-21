@@ -40,4 +40,13 @@ public class BlogController {
         // Service단의 getSelectedBlog 메서드에 id값 넣어 return
     }
 
+    // 선택한게시글수정
+    @PutMapping("api/post/{id}")
+    public BlogResponseDto updateBlog(@PathVariable Long id, @RequestBody BlogRequestDto requestDto) {
+        // 느슨한결합 -> Entity 바로 반환하지 않고, DTO에 담아서 반환
+        // @RequestBody : Client 입력값 -> HTTP BODY에 Json형태로 넘어감 -> 메서드 파라미터에 값을 받아올 객체를 지정
+        // @PathVariable : URL을 통해 전달된 값 -> 파라미터로 받아옴
+        return blogService.updateBlog(id, requestDto);
+        // Service단의 updateBlog 메서드 return (id, requestDto 파라미터로 받음)
+    }
 }

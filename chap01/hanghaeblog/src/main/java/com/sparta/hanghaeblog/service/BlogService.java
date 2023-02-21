@@ -59,6 +59,27 @@ public class BlogService {
         );
         return new BlogResponseDto(selectedBlog);
     }
+
+    // 선택한게시글수정
+    @Transactional
+    public BlogResponseDto updateBlog(Long id, BlogRequestDto requestDto) {
+        // Controller 단에서 Service 호출할때, 파라미터로 받은 id값과 Client 변경사항
+        Blog selectedBlog = blogRepository.findById(id).orElseThrow(
+                () -> new IllegalStateException("해당 게시글이 없습니다.")
+        );
+        // id로 DB에서 조회 -> 예외처리를 통해 선택한게시글이 존재하는지 확인
+
+        if (!requestDto.getPassword().equals(selectedBlog.getPassword())) {
+            throw new IllegalStateException("비밀번호가 일치하지 않습니다.");
+        }
+        // 저장된 게시글 패스워드와 클라이언트가 입력한 패스워드 비교
+        // Client가 입력한 RequestDto에 있는 PW와 기존 PW가 일치X -> 예외던짐
+        // IllegalStateException : 적절하지 못한 인자를 메서드로 넘겨주었을 때의 예외
+
+        selectedBlog.update(requestDto);
+        return new BlogResponseDto(selectedBlog);
+        // 패스워드 일치 -> 해당 게시글 수정 update
+    }
 }
 
 /* 주요 Entity Class의 객체를 만들어

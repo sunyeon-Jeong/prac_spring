@@ -34,4 +34,10 @@ public class Blog extends Timestamped {
         this.password = requestDto.getPassword();
         this.content = requestDto.getContent();
     }
+
+    // 선택게시글수정 -> Blog 필드값(멤버변수)에 반영하기
+    public void update(BlogRequestDto requestDto) {
+        this.title = requestDto.getTitle();
+        this.content = requestDto.getContent();
+    }
 }
