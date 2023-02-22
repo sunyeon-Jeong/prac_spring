@@ -80,6 +80,23 @@ public class BlogService {
         return new BlogResponseDto(selectedBlog);
         // 패스워드 일치 -> 해당 게시글 수정 update
     }
+
+    // 선택한게시글삭제
+    @Transactional
+    public void deleteBlog(Long id, BlogRequestDto requestDto) {
+        Blog selectedBlog = blogRepository.findById(id).orElseThrow(
+                () -> new IllegalStateException("해당 게시글이 존재하지 않습니다.")
+        );
+        // 게시글 Id -> 해당게시글 조회 -> 없으면 예외발생
+
+        if (!requestDto.getPassword().equals(selectedBlog.getPassword())) {
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+        }
+        // Client 입력 pw -> 조회한 게시글 pw와 다르면 -> 예외발생
+
+        blogRepository.delete(selectedBlog);
+        // pw 일치 -> 조회한게시글 삭제
+    }
 }
 
 /* 주요 Entity Class의 객체를 만들어
