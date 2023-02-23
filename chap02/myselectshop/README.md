@@ -15,3 +15,13 @@
 |관심상품 조회하기|`GET`|/api/products|-|[<br>{<br>"id":Long,<br>"title":String,<br>"link":String,<br>"image":String,<br>"lprice":int,<br>"myprice":int<br>},<br>...<br>]|
 |관심상품 최저가 등록하기|PUT|/apiproducts/{id}|{<br>"myprice":int<br>}|id|
 - - -
+## 🐣 AllInOneController 관심사 분리하기
+[AllInOneController]
+![img.png](img.png)
+1. Controller 역할 구분
+![img_1.png](img_1.png)
+2. Service 역할 구분
+![img_2.png](img_2.png)
+3. Repository 역할 구분
+![img_3.png](img_3.png)
+- - -
