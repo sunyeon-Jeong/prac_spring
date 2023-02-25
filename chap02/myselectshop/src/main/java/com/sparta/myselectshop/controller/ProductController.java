@@ -4,6 +4,7 @@ import com.sparta.myselectshop.dto.ProductMypriceRequestDto;
 import com.sparta.myselectshop.dto.ProductRequestDto;
 import com.sparta.myselectshop.dto.ProductResponseDto;
 import com.sparta.myselectshop.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
@@ -13,6 +14,8 @@ import java.util.List;
 @RequestMapping("/api") // 클래스의 모든 요청은 우선 해당주소로 받음
 public class ProductController {
     private final ProductService productService; // 멤버변수 선언
+
+    @Autowired // 스프링에 의해 DI (의존성주입)
     public ProductController() { // 생성자, 멤버변수 <- 객체생성, 연결
         this.productService = new ProductService();
     }
