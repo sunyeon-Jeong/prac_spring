@@ -14,10 +14,11 @@ import java.util.List;
 public class ProductService {
 
     private final ProductRepository productRepository;
-    // DB연결
+    // 멤버변수 선언
 
     public ProductService() { // 생성자
         this.productRepository = new ProductRepository();
+        // 멤버변수 <- 객체 생성
     }
 
     // 관심상품 등록하기
