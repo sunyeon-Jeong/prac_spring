@@ -5,6 +5,7 @@ import com.sparta.myselectshop.dto.ProductRequestDto;
 import com.sparta.myselectshop.dto.ProductResponseDto;
 import com.sparta.myselectshop.entity.Product;
 import com.sparta.myselectshop.repository.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.sql.SQLException;
@@ -16,6 +17,7 @@ public class ProductService {
     private final ProductRepository productRepository;
     // 멤버변수 선언
 
+    @Autowired // 스프링에 의해 DI (의존성주입)
     public ProductService() { // 생성자
         this.productRepository = new ProductRepository();
         // 멤버변수 <- 객체 생성
