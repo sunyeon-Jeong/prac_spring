@@ -16,8 +16,8 @@ public class ProductController {
     private final ProductService productService; // 멤버변수 선언
 
     @Autowired // 스프링에 의해 DI (의존성주입)
-    public ProductController() { // 생성자, 멤버변수 <- 객체생성, 연결
-        this.productService = new ProductService();
+    public ProductController(ProductService productService) { // 생성자, 멤버변수 <- 객체생성, 연결
+        this.productService = productService;
     }
 
     // 관심상품 등록하기

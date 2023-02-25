@@ -13,13 +13,11 @@ import java.util.List;
 
 @Component // 개발자가 생성한 class → Spring Bean 으로 등록
 public class ProductService {
-
-    private final ProductRepository productRepository;
-    // 멤버변수 선언
+    private final ProductRepository productRepository; // 멤버변수 생성
 
     @Autowired // 스프링에 의해 DI (의존성주입)
-    public ProductService() { // 생성자
-        this.productRepository = new ProductRepository();
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
         // 멤버변수 <- 객체 생성
     }
 
