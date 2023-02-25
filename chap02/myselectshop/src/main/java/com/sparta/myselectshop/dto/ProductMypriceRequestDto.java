@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class 옴ProductMypriceRequestDto {
+public class ProductMypriceRequestDto {
     private int myprice;
 }
