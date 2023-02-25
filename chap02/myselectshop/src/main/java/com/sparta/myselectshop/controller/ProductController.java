@@ -4,6 +4,7 @@ import com.sparta.myselectshop.dto.ProductMypriceRequestDto;
 import com.sparta.myselectshop.dto.ProductRequestDto;
 import com.sparta.myselectshop.dto.ProductResponseDto;
 import com.sparta.myselectshop.service.ProductService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,13 +13,16 @@ import java.util.List;
 
 @RestController // Json 형태의 데이터 반환
 @RequestMapping("/api") // 클래스의 모든 요청은 우선 해당주소로 받음
+@RequiredArgsConstructor // final로 선언된 멤버변수 자동생성
 public class ProductController {
     private final ProductService productService; // 멤버변수 선언
-
+/*
+    @RequiredArgsConstructor -> 아래 부분 생략가능
     @Autowired // 스프링에 의해 DI (의존성주입)
     public ProductController(ProductService productService) { // 생성자, 멤버변수 <- 객체생성, 연결
         this.productService = productService;
     }
+*/
 
     // 관심상품 등록하기
     @PostMapping("/products") // 등록 -> POST

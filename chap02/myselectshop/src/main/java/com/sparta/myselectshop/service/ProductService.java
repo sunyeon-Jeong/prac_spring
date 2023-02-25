@@ -5,22 +5,26 @@ import com.sparta.myselectshop.dto.ProductRequestDto;
 import com.sparta.myselectshop.dto.ProductResponseDto;
 import com.sparta.myselectshop.entity.Product;
 import com.sparta.myselectshop.repository.ProductRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Component;
 
 import java.sql.SQLException;
 import java.util.List;
 
 @Component // 개발자가 생성한 class → Spring Bean 으로 등록
+@RequiredArgsConstructor // final로 선언된 멤버변수 자동생성
 public class ProductService {
     private final ProductRepository productRepository; // 멤버변수 생성
-
+/*
+    @RequiredArgsConstructor -> 아래 부분 생략가능
     @Autowired // 스프링에 의해 DI (의존성주입)
     public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
         // 멤버변수 <- 객체 생성
     }
-
+*/
     // 관심상품 등록하기
     public ProductResponseDto createProduct(ProductRequestDto requestDto) throws SQLException {
         // ProductResponseDto에 반환
