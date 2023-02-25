@@ -13,9 +13,9 @@ import java.util.List;
 
 @RestController // Json 형태의 데이터 반환
 @RequestMapping("/api") // 클래스의 모든 요청은 우선 해당주소로 받음
-@RequiredArgsConstructor // final로 선언된 멤버변수 자동생성
+@RequiredArgsConstructor // final로 선언된 멤버변수 자동생성(DI 의존성주입)
 public class ProductController {
-    private final ProductService productService; // 멤버변수 선언
+    private final ProductService productService; // 멤버변수 선언(Service 연결)
 /*
     @RequiredArgsConstructor -> 아래 부분 생략가능
     @Autowired // 스프링에 의해 DI (의존성주입)
@@ -26,9 +26,8 @@ public class ProductController {
 
     // 관심상품 등록하기
     @PostMapping("/products") // 등록 -> POST
-    public ProductResponseDto createProduct(@RequestBody ProductRequestDto requestDto) throws SQLException {
+    public ProductResponseDto createProduct(@RequestBody ProductRequestDto requestDto) {
         // @RequestBody : Client 입력값 -> HTTP BODY에 Json형태로 넘어감 -> 메서드 파라미터에 값을 받아올 객체를 지정
-        // 예외 : SQLException으로 던짐
 
         return productService.createProduct(requestDto);
         // Client 입력값을 파라미터로 받아 -> 서비스단의 createProduct 메서드 실행 후, return
@@ -36,9 +35,8 @@ public class ProductController {
 
     // 관심상품 조회하기
     @GetMapping("/products") // 조회 -> GET
-    public List<ProductResponseDto> getProducts() throws SQLException {
+    public List<ProductResponseDto> getProducts() {
         // ResponseDto List 형태로 반환
-        // 예외 : SQLException으로 던짐
 
         return productService.getProducts();
         // 서비스단의 getProducts 메서드 실행 후, return기
@@ -46,7 +44,7 @@ public class ProductController {
 
     // 관심상품 최저가 등록하기
     @PutMapping("/products/{id}") // 등록 -> POST
-    public Long updateProduct(@PathVariable Long id, @RequestBody ProductMypriceRequestDto requestDto) throws SQLException {
+    public Long updateProduct(@PathVariable Long id, @RequestBody ProductMypriceRequestDto requestDto) {
         // Long타입 updateProduct메서드 실행
         // @PathVariable : url을 통해 전달된 값 -> 파라미터로 받아옴
         // @RequestBody : Client 입력값 → HTTP Body에 Json형태로 넘어감 → 파라미터에 @RequestBody + 값을 받아올 객체 지정해줌
