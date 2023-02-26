@@ -1,6 +1,7 @@
 package com.sparta.myselectshop.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -11,6 +12,8 @@ public class ShopController {
 
     @GetMapping("/shop")
     public ModelAndView shop() {
-        return new ModelAndView("index"); // index 파일을 불러옴
+        ModelAndView modelAndView = new ModelAndView("index");
+        modelAndView.addObject("username", "");
+        return modelAndView;
     }
 }

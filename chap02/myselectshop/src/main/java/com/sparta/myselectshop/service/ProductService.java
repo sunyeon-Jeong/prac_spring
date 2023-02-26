@@ -16,7 +16,7 @@ import java.util.List;
 // @Component // 개발자가 생성한 class → Spring Bean 으로 등록
 // @Component 대신, @Service -> 자동 Bean 등록
 @Service
-@RequiredArgsConstructor // final로 선언된 멤버변수 자동생성
+@RequiredArgsConstructor // final로 선언된 멤버변수에 자동으로 의존성주입(lombok)
 public class ProductService {
     private final ProductRepository productRepository;
     /*
@@ -37,7 +37,7 @@ public class ProductService {
         return new ProductResponseDto(product);
     }
 
-    @Transactional(readOnly = true)
+    @Transactional (readOnly = true) // 영속성컨텍스트에서 read 기능만 함 (rollback 안함)
     public List<ProductResponseDto> getProducts() {
 
         List<ProductResponseDto> list = new ArrayList<>();

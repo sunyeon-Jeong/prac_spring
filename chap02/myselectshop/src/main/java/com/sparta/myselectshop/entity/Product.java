@@ -11,9 +11,9 @@ import javax.persistence.*;
 
 @Getter // private 필드값을 가져옴
 @Setter // getter로 가져 온 private 필드값 -> 수정함
-@Entity // DB 테이블 역할을 합니다.
+@Entity // DB 테이블 역할
 @NoArgsConstructor // 파라미터가 없는 기본생성자 생성
-public class Product { // Entity class Product
+public class Product extends Timestamped { // Entity class Product
 
     @Id // 기본키(PK) 자동생성 -> 영속성 entity 필수조건
     @GeneratedValue(strategy = GenerationType.IDENTITY) // ID가 자동으로 생성 및 증가!
@@ -50,6 +50,6 @@ public class Product { // Entity class Product
 
     // 상품최저가 스케줄러
     public void updateByItemDto(ItemDto itemDto) {
-        this.myprice = requestDto.getLprice();
+        this.lprice = itemDto.getLprice();
     }
 }
