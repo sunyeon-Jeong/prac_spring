@@ -16,6 +16,10 @@
 |관심상품 등록하기|`POST`|/api/products|{<br>"title":String,<br>"link":String,<br>"image":String,<br>"lprice":int<br>}|{<br>"id":Long,<br>"title":String,<br>"link":String,<br>"image":String,<br>"lprice":int,<br>"myprice":int<br>}|
 |관심상품 조회하기|`GET`|/api/products|-|[<br>{<br>"id":Long,<br>"title":String,<br>"link":String,<br>"image":String,<br>"lprice":int,<br>"myprice":int<br>},<br>...<br>]|
 |관심상품 최저가 등록하기|`PUT`|/apiproducts/{id}|{<br>"myprice":int<br>}|id|
+|회원가입 페이지|`GET`|/api/user/signup|-|signup.html|
+|회원가입|`POST`|/api/user/signup|POST Form 태그<br>{<br>"username":String,<br>"password":String,<br>"email":String,<br>"admin":boolean,<br>"adminToken":String<br>}|redirect:/api/user/login|
+|로그인 페이지|`GET`|/api/user/login|-|login.html|
+|로그인|`POST`|/api/user/login|POST Form 태그<br>{<br>"username":String,<br>"password":String<br>}|redirect:/api/shop|
 - - -
 ## 🐣 AllInOneController 관심사 분리하기
 [AllInOneController]
