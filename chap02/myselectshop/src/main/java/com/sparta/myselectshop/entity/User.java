@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor // class 기본생성자를 자동으로 추가해줌
-@Entity(name = "users") // 테이블이름 users
+@Entity(name = "users") // 테이블이름 users (Spring Boot H2에서 User가 예약어로 등록되어 변경 필)
 public class User {
 
     @Id
@@ -29,6 +29,7 @@ public class User {
     @Enumerated(value = EnumType.STRING) // 권한, 등급을 나타냄(STRING:Enum이름을 저장함)
     private UserRoleEnum role;
 
+    // 생성자 -> 값 초기화
     public User(String username, String password, String email, UserRoleEnum role) {
         this.username = username;
         this.password = password;
