@@ -1,5 +1,6 @@
 package com.sparta.myselectshop.service;
 
+import com.sparta.myselectshop.dto.LoginRequestDto;
 import com.sparta.myselectshop.dto.SignupRequestDto;
 import com.sparta.myselectshop.entity.User;
 import com.sparta.myselectshop.entity.UserRoleEnum;
@@ -45,5 +46,24 @@ public class UserService {
 
         User user = new User(username, password, email, role); // UserEntity 객체 -> 회원가입관련 데이터 저장
         userRepository.save(user); // 회원가입 내용 DB에 저장
+    }
+
+    // 로그인
+    @Transactional(readOnly = true)
+    public void login(LoginRequestDto loginRequestDto) {
+        String username = loginRequestDto.getUsername();
+        String password = loginRequestDto.getPassword();
+
+        // 사용자 확인
+        User user = userRepository.findByUsername(username).orElseThrow(
+                // User Entity의 객체 <- DB에서 username 찾고, 없으면 예외처리
+                () -> new IllegalArgumentException("등록된 사용자가 없습니다.")
+        );
+
+        // 비밀번호 확인
+        if(!user.getPassword().equals(password)){
+            // 앞의 username에서 password 가져온 후, 일치하지 않으면 예외처리
+            throw  new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+        }
     }
 }

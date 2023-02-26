@@ -1,5 +1,6 @@
 package com.sparta.myselectshop.controller;
 
+import com.sparta.myselectshop.dto.LoginRequestDto;
 import com.sparta.myselectshop.dto.SignupRequestDto;
 import com.sparta.myselectshop.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +37,15 @@ public class UserController {
         // Service단에서 signup 메서드 실행(파라미터로 Client 입력값 signupRequestDto 넘김)
         return "redirect:/api/user/login";
         // 끝나고 나면 로그인 페이지로 redirect함
+    }
+
+    // 로그인
+    @PostMapping("/login")
+    public String login(LoginRequestDto loginRequestDto) {
+        userService.login(loginRequestDto);
+        // Service단에서 login 메서드 실행(파라미터로 Client입력값 loginRequestDto 넘김)
+        return "redirect:/api/shop";
+        // 끝나고 나면 메인 페이지로 redirect함
     }
 }
 /*
