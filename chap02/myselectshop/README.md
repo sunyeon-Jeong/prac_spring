@@ -24,6 +24,16 @@
 |회원가입|`POST`|/api/user/signup|POST Form 태그<br>{<br>"username":String,<br>"password":String,<br>"email":String,<br>"admin":boolean,<br>"adminToken":String<br>}|redirect:/api/user/login|
 |로그인 페이지|`GET`|/api/user/login|-|login.html|
 |로그인|`POST`|/api/user/login|POST Form 태그<br>{<br>"username":String,<br>"password":String<br>}|redirect:/api/shop|
+
+* JWT 적용시 User API
+
+|기능|Method|URL|Request|Response|
+|---|---|---|---|---|
+|회원가입 페이지|`GET`|/api/user/signup|-|signup.html|
+|회원가입|`POST`|/api/user/signup|POST Form 태그<br>{<br>"username":String,<br>"password":String,<br>"email":String,<br>"admin":boolean,<br>"adminToken":String<br>}|redirect:/api/user/login|
+|로그인 페이지|`GET`|/api/user/login|-|login.html|
+|로그인|`POST`|/api/user/login|{<br>"username":String,<br>"password":String<br>}|Header<br>Authorization:Bearer<br><JWT><br>success|
+
 - - -
 ## 🐣 AllInOneController 관심사 분리하기
 [AllInOneController]
