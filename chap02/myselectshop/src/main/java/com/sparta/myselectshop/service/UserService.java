@@ -13,11 +13,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
-@Service
-@RequiredArgsConstructor
+@Service // 서비스단
+@RequiredArgsConstructor // final로 선언된 멤버변수 자동생성(DI 의존성주입)
 public class UserService {
     // Repository(DB)단 객체로 연결
     private final UserRepository userRepository;
+    // 로그인 -> Header에 토큰 넣을 때 JwtUtil 사용을 위한 의존성 주입
+    private final JwtUtil jwtUtil;
 
     // ADMIN_TOKEN
     private static final String ADMIN_TOKEN = "AAABnvxRVklrnYxKZ0aHgTBcXukeZygoC";
@@ -53,6 +55,7 @@ public class UserService {
     // 로그인
     @Transactional(readOnly = true)
     public void login(LoginRequestDto loginRequestDto, HttpServletResponse response) {
+        // HttpServletResponse의 response 객체에 토큰값을 Header에 담아 Client쪽으로 반환함
         String username = loginRequestDto.getUsername();
         String password = loginRequestDto.getPassword();
 
