@@ -22,29 +22,30 @@ import java.util.Date;
 @RequiredArgsConstructor // final, @Notnull 필드 -> 의존성 주입
 public class JwtUtil {
     // 토큰 생성에 필요한 값
-    // Response Header에 전달된 JWT 형태 -> Authorization: BEARER <JWT>
+    // Client Response Header에 전달된 JWT 형태 -> Authorization: BEARER <JWT>
     public static final String AUTHORIZATION_HEADER = "Authorization"; // Header Key 값
     public static final String AUTHORIZATION_KEY = "auth"; // 사용자 권한값 Key
-    private static final String BEARER_PREFIX = "Bearer "; // Token 식별자
+    private static final String BEARER_PREFIX = "Bearer"; // Token 식별자
     private static final long TOKEN_TIME = 60 * 60 * 1000L; // Token 만료시간 (ms기준 -> 1시간설정)
 
-    @Value("${jwt.secret.key}") // application.properties에 Token 값 가져옴
+    @Value("${jwt.secret.key}") // application.properties의 Token 값 가져옴
     private String secretKey; // 서버에서 Client가 전달한 JWT 위조여부 검증함
-    private Key key; // key 객체 : Token 생성 시, 넣어줄 key값
+    private Key key; // key 객체 : Token 생성 시, 넣어줄 key값(Secret Key)
     private final SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
     @PostConstruct // 객체 생성 시, 초기화하는 함수
     public void init() {
-        byte[] bytes = Base64.getDecoder().decode(secretKey); // secretKey 디코딩 -> bytes 변수에 담기
+        byte[] bytes = Base64.getDecoder().decode(secretKey);
+        // secretKey 디코딩 -> bytes 변수에 담기(반환값이 byte배열)
         key = Keys.hmacShaKeyFor(bytes); // 메서드 사용해서 key에 담아주기
     }
 
     // header 토큰을 가져오기
     public String resolveToken(HttpServletRequest request) {
-        // HttpServletRequest의 request 객체에 값 담아옴
+        // HttpServletRequest의 request 객체에 토큰값 담아옴(Header에 들어있음)
         String bearerToken = request.getHeader(AUTHORIZATION_HEADER); // 파라미터로 key값 지정 -> 값 가져옴
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_PREFIX)) {
-            // Header가 bearerToken이 있는지 + Bearer_Pprefix로 시작하는지 확인
+            // Header가 bearerToken이 있는지 + BEARER_PREFIX로 시작하는지 확인
             return bearerToken.substring(7); // 앞의 7글자 지우고 가져옴(Token과 관련없는 Bearer)
         }
         return null;

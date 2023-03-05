@@ -5,10 +5,11 @@ import com.sparta.myselectshop.dto.SignupRequestDto;
 import com.sparta.myselectshop.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 // 로그인, 회원가입 페이지를 가져오는 컨트롤러
 @Controller // 자동 Bean 등록 (단순 페이지 반환만 하기 때문에 @Controller 사용)
@@ -40,13 +41,20 @@ public class UserController {
     }
 
     // 로그인
+    @ResponseBody
     @PostMapping("/login")
-    public String login(LoginRequestDto loginRequestDto) {
-        userService.login(loginRequestDto);
-        // Service단에서 login 메서드 실행(파라미터로 Client입력값 loginRequestDto 넘김)
-        return "redirect:/api/shop";
-        // 끝나고 나면 메인 페이지로 redirect함
+    public String login(@RequestBody LoginRequestDto loginRequestDto, HttpServletResponse response) {
+        userService.login(loginRequestDto, response);
+        return "success";
     }
+//    @PostMapping("/login")
+//    public String login(LoginRequestDto loginRequestDto) {
+//        userService.login(loginRequestDto);
+//        // Service단에서 login 메서드 실행(파라미터로 Client입력값 loginRequestDto 넘김)
+//        return "redirect:/api/shop";
+//        // 끝나고 나면 메인 페이지로 redirect함
+//    }
+//    POST Form 태그 -> ModelAttribute 형식으로 받아옴
 }
 /*
 Controller -> Client request 받아서 Service단으로 보내주는 역할만 수행!!!
