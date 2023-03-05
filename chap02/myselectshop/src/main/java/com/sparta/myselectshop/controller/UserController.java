@@ -37,13 +37,14 @@ public class UserController {
         userService.signup(signupRequestDto);
         // Service단에서 signup 메서드 실행(파라미터로 Client 입력값 signupRequestDto 넘김)
         return "redirect:/api/user/login";
-        // 끝나고 나면 로그인 페이지로 redirect함
+        // 끝나고 나면 로그인 페이지로 redirect함 (POST FORM 태그 형식)
     }
 
     // 로그인
-    @ResponseBody
+    @ResponseBody // ajax에서 body에 값이 넘어감
     @PostMapping("/login")
     public String login(@RequestBody LoginRequestDto loginRequestDto, HttpServletResponse response) {
+        // HttpServletResponse의 response 객체에 토큰값을 Header에 담아 Client 쪽으로 반환함
         userService.login(loginRequestDto, response);
         return "success";
     }
