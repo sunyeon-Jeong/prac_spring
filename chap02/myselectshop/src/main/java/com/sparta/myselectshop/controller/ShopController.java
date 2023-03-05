@@ -12,7 +12,7 @@ public class ShopController {
 
     @GetMapping("/shop")
     public ModelAndView shop() {
-        return new ModelAndView("index");
+        return new ModelAndView("index"); // index.html 실행
 //    @GetMapping("/shop")
 //    public ModelAndView shop() {
 //        ModelAndView modelAndView = new ModelAndView("index");
