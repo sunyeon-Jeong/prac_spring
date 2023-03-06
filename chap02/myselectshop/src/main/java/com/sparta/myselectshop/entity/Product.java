@@ -35,13 +35,17 @@ public class Product extends Timestamped { // Entity class Product
     @Column(nullable = false)
     private int myprice; // 내가 지정한 금액
 
+    @Column(nullable = false)
+    private Long userId; // user에 id를 넣어줌
+
     // 생성자
-    public Product(ProductRequestDto requestDto) {
+    public Product(ProductRequestDto requestDto, Long userId) {
         this.title = requestDto.getTitle(); // Client가 request하는 값 -> getter -> entity class 필드값 덮어씌우기
         this.image = requestDto.getImage();
         this.link = requestDto.getLink();
         this.lprice = requestDto.getLprice();
         this.myprice = 0; // 생성자 이용 -> 내가 지정한 금액 0으로 셋팅
+        this.userId = userId;
     }
 
     public void update(ProductMypriceRequestDto requestDto) {
