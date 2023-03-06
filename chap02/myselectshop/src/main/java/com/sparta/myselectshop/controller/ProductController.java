@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -35,11 +36,11 @@ public class ProductController {
 
     // 관심상품 조회하기
     @GetMapping("/products") // 조회 -> GET
-    public List<ProductResponseDto> getProducts() {
+    public List<ProductResponseDto> getProducts(HttpServletRequest request) {
         // ResponseDto List 형태로 반환
 
-        return productService.getProducts();
-        // 서비스단의 getProducts 메서드 실행 후, return기
+        return productService.getProducts(request);
+        // 서비스단의 getProducts 메서드 실행 후, return
     }
 
     // 관심상품 최저가 등록하기
