@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -27,10 +28,10 @@ public class ProductController {
 
     // 관심상품 등록하기
     @PostMapping("/products") // 등록 -> POST
-    public ProductResponseDto createProduct(@RequestBody ProductRequestDto requestDto) {
+    public ProductResponseDto createProduct(@RequestBody ProductRequestDto requestDto, HttpServletRequest request) {
         // @RequestBody : Client 입력값 -> HTTP BODY에 Json형태로 넘어감 -> 메서드 파라미터에 값을 받아올 객체를 지정
-
-        return productService.createProduct(requestDto);
+        // HttpServletRequest 객체 -> Client가 등록할 때의 request Header에 토큰값이 있음
+        return productService.createProduct(requestDto, request);
         // Client 입력값을 파라미터로 받아 -> 서비스단의 createProduct 메서드 실행 후, return
     }
 
