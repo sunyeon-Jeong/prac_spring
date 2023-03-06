@@ -83,7 +83,7 @@ public class ProductService {
 //        }
 //        return list;
 //    }
-    @Transactional (readOnly = true) // 영속성컨텍스트에서 read 기능만 함 (rollback 안함)
+    @Transactional(readOnly = true) // 영속성컨텍스트에서 read 기능만 함 (rollback 안함)
     public List<ProductResponseDto> getProducts(HttpServletRequest request) {
         // Request에서 Token 가져옴(Client가 요청시 token을 같이 넘겨 세션 유지)
         String token = jwtUtil.resolveToken(request); // request Header에서 토큰 가져옴
@@ -123,16 +123,44 @@ public class ProductService {
         }
     }
 
+    // 관심상품 최저가 등록하기
+//    @Transactional
+//    public Long updateProduct(Long id, ProductMypriceRequestDto requestDto) {
+//
+//        Product product = productRepository.findById(id).orElseThrow(
+//                () -> new NullPointerException("해당 상품은 존재하지 않습니다.")
+//        );
+//
+//        product.update(requestDto);
+//
+//        return product.getId();
+//    }
     @Transactional
-    public Long updateProduct(Long id, ProductMypriceRequestDto requestDto) {
+    public Long updateProduct(Long id, ProductMypriceRequestDto requestDto, HttpServletRequest request) {
+        // Request에서 Token 가져옴(Client가 요청시 token을 같이 넘겨 세션 유지)
+        String token = jwtUtil.resolveToken(request); // request Header에서 토큰 가져옴
+        Claims claims; // JWT 안에있는 정보를 담을 수 있는 객체
 
-        Product product = productRepository.findById(id).orElseThrow(
-                () -> new NullPointerException("해당 상품은 존재하지 않습니다.")
-        );
-
-        product.update(requestDto);
-
-        return product.getId();
+        if (token != null) { // 1. 토큰값 있을 경우 -> 관심상품 최저가 업데이트 가능
+            // 2. 토큰 검증단계
+            if (jwtUtil.validateToken(token)) { // validateToken 메서드를 통해 토큰 검증
+                // 토큰에서 사용자 정보 가져오기
+                claims = jwtUtil.getUserInfoFromToken(token);
+            } else {
+                throw new IllegalArgumentException("Token Error");
+            }
+            // 3. 토큰에서 가져온 사용자 정보 claims -> DB조회
+            User user = userRepository.findByUsername(claims.getSubject()).orElseThrow(
+                    () -> new IllegalArgumentException("사용자가 존재하지 않습니다")
+            );
+            Product product = productRepository.findByIdAndUserId(id, user.getId()).orElseThrow(
+                    () -> new NullPointerException("해당 상품은 존재하지 않습니다.")
+            );
+            product.update(requestDto);
+            return product.getId();
+        } else {
+            return null;
+        }
     }
 
     @Transactional
@@ -142,5 +170,4 @@ public class ProductService {
         );
         product.updateByItemDto(itemDto);
     }
-
 }

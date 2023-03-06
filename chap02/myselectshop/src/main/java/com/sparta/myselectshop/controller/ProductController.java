@@ -46,14 +46,17 @@ public class ProductController {
 
     // 관심상품 최저가 등록하기
     @PutMapping("/products/{id}") // 등록 -> POST
-    public Long updateProduct(@PathVariable Long id, @RequestBody ProductMypriceRequestDto requestDto) {
-        // Long타입 updateProduct메서드 실행
-        // @PathVariable : url을 통해 전달된 값 -> 파라미터로 받아옴
-        // @RequestBody : Client 입력값 → HTTP Body에 Json형태로 넘어감 → 파라미터에 @RequestBody + 값을 받아올 객체 지정해줌
-        // Client가 입력한 관심상품최저가() -> 파라미터로 받아옴
-
-        return productService.updateProduct(id, requestDto);
-        // (업데이트된 상품 id, 클라이언트 입력 상품최저가) -> Service단의 updateProduct 메서드 실행
+//    public Long updateProduct(@PathVariable Long id, @RequestBody ProductMypriceRequestDto requestDto) {
+//        // Long타입 updateProduct메서드 실행
+//        // @PathVariable : url을 통해 전달된 값 -> 파라미터로 받아옴
+//        // @RequestBody : Client 입력값 → HTTP Body에 Json형태로 넘어감 → 파라미터에 @RequestBody + 값을 받아올 객체 지정해줌
+//        // Client가 입력한 관심상품최저가() -> 파라미터로 받아옴
+//
+//        return productService.updateProduct(id, requestDto);
+//        // (업데이트된 상품 id, 클라이언트 입력 상품최저가) -> Service단의 updateProduct 메서드 실행
+//    }
+    public Long updateProduct(@PathVariable Long id, @RequestBody ProductMypriceRequestDto requestDto, HttpServletRequest request) {
+        return productService.updateProduct(id, requestDto, request);
     }
 }
 
